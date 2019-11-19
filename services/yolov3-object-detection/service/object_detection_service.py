@@ -56,6 +56,7 @@ def serve(max_workers=10, port=7777):
     grpc_msg_size = (1024 ** 2) * 100   # max grpc message size
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers), options=[
             ('grpc.max_receive_message_length', grpc_msg_size)])
+    
     grpc_bt_grpc.add_DetectServicer_to_server(ObjectDetectorServicer(), server)
     server.add_insecure_port("[::]:{}".format(port))
     return server
